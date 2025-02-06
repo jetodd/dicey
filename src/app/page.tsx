@@ -14,17 +14,22 @@ export default function Home() {
 
   const modifierMin = -20;
   const modifierMax = 100;
+  const numberOfDiceMax = 50;
 
   const modifierOnChange = (value: number) => {
-    if (value < modifierMin) {
-      return modifierMin;
+    if (value < modifierMin || value > modifierMax) {
+      return;
     }
 
-    if  (value > modifierMax) {
-      return modifierMax;
+    setModifier(value);
+  }
+
+  const numberOfDiceOnChange = (value: number) => {
+    if (value < 1 || value > numberOfDiceMax) {
+      return;
     }
 
-    setModifier(value)
+    setNumberOfDice(value);
   }
 
   const modifierProps: IStepperProps = {
@@ -36,11 +41,11 @@ export default function Home() {
   }
 
   const diceNumberProps: IStepperProps = {
-    onChange: setNumberOfDice,
+    onChange: numberOfDiceOnChange,
     label: "Number",
     value: numberOfDice,
     min: 1,
-    max: 20,
+    max: numberOfDiceMax,
   }
 
   function handleClear() {
