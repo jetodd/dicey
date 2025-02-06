@@ -141,9 +141,6 @@ export default function Home() {
               Total:  {previousRoll.reduce((n, {rolled, modifier}) => n + rolled + modifier, 0)}
             </div>
           </div>
-
-          <div className="col-span-4">mod: {modifier}</div>
-          <div className="col-span-4">num: {numberOfDice}</div>
         </div>
       </main>
   );
