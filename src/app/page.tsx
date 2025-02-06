@@ -126,7 +126,9 @@ export default function Home() {
                 <Die dieNumber={data.die} displayNumber={data.rolled} />
               )
             })}
-            <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">Total: </div>
+            <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">
+              Total: {currentRoll.reduce((n, {rolled, modifier}) => n + rolled + modifier, 0)}
+            </div>
           </div>
 
           <div className="col-span-8">
@@ -135,7 +137,9 @@ export default function Home() {
 
           <div className="col-span-8">
             <h1>Previous:</h1>
-            <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">Total: </div>
+            <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">
+              Total:  {previousRoll.reduce((n, {rolled, modifier}) => n + rolled + modifier, 0)}
+            </div>
           </div>
 
           <div className="col-span-4">mod: {modifier}</div>
