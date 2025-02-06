@@ -8,7 +8,7 @@ export default function Twenty({
         <span className="flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="36px" height="36px" viewBox="0 0 36 36">
                 <polygon points="33.6,9 33.6,27 18,36 2.4,27 2.4,9 18,0 33.6,9" fill={color} />
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{text}</text>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white">{text}</text>
             </svg>
         </span>
     )

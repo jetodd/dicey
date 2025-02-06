@@ -8,7 +8,7 @@ export default function Two({
     <span className="flex items-center justify-center">
       <svg width="32" height="32">
           <circle x="0" y="0" cy="16" cx="16" r="16" fill={color} />
-          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{text}</text>
+          <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white">{text}</text>
       </svg>
     </span>
   )

@@ -8,7 +8,7 @@ export default function Six({
         <span className="flex items-center justify-center">
             <svg width="28" height="28">
                 <rect x="0" y="0" width="28" height="28" fill={color} />
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{text}</text>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white">{text}</text>
             </svg>
         </span>
     )
