@@ -121,11 +121,13 @@ export default function Home() {
 
           <div className="col-span-8">
             <h1>Current:</h1>
+          </div>
             {currentRoll.map(function(data) {
               return (
                 <Die dieNumber={data.die} displayNumber={data.rolled} />
               )
             })}
+          <div className="col-span-8">
             <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">
               Total: {currentRoll.reduce((n, {rolled, modifier}) => n + rolled + modifier, 0)}
             </div>

@@ -49,8 +49,8 @@ export default function Die({
     };
 
     return (
-        <span>
+        <div>
             {renderDieSelection()}
-        </span>
+        </div>
     )
 }
