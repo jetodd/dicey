@@ -1,15 +1,9 @@
 "use client"
 
 import { useState } from "react";
-import Four from "./_components/Four/Four";
-import Two from "./_components/Two/Two";
-import Eight from "./_components/Eight/Eight";
-import Ten from "./_components/Ten/Ten";
-import Six from "./_components/Six/Six";
-import Twelve from "./_components/Twelve/Twelve";
-import Twenty from "./_components/Twenty/Twenty";
 import { IDiceRoll } from "./_models/IDiceRoll";
 import Stepper, { IStepperProps } from "./_components/Stepper/Stepper";
+import Die from "./_components/Die/Die";
 
 export default function Home() {
   const [history, setHistory] = useState<IDiceRoll[]>([]);
@@ -81,14 +75,30 @@ export default function Home() {
   return (
       <main>
         <div className="grid grid-cols-8 font-[family-name:var(--font-geist-sans)] p-4 gap-y-4 max-w-5xl mx-auto">
-          <div className="bg-emerald py-1 text-green rounded-l-2xl border-2 border-green content-center justify-center" onClick={() => addDice(2)}><Two text="2" /></div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(4)}><Four text="4" /></div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(6)}><Six text="6" /></div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(8)}><Eight text="8" /></div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(10)}><Ten text="10" /></div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(12)}><Twelve text="12" /></div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(20)}><Twenty text="20" /></div>
-          <div className="bg-emerald py-1 text-green border-2 border-green rounded-r-2xl content-center" onClick={() => addDice(100)}><Two text="100" /></div>
+          <div className="bg-emerald py-1 text-green rounded-l-2xl border-2 border-green content-center justify-center" onClick={() => addDice(2)}>
+            <span className="flex items-center justify-center"><Die dieNumber={2} displayNumber={2} /></span>
+          </div>
+          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(4)}>
+            <span className="flex items-center justify-center"><Die dieNumber={4} displayNumber={4} /></span>
+          </div>
+          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(6)}>
+            <span className="flex items-center justify-center"><Die dieNumber={6} displayNumber={6} /></span>
+          </div>
+          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(8)}>
+            <span className="flex items-center justify-center"><Die dieNumber={8} displayNumber={8} /></span>
+          </div>
+          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(10)}>
+            <span className="flex items-center justify-center"><Die dieNumber={10} displayNumber={10} /></span>
+          </div>
+          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(12)}>
+            <span className="flex items-center justify-center"><Die dieNumber={12} displayNumber={12} /></span>
+          </div>
+          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(20)}>
+            <span className="flex items-center justify-center"><Die dieNumber={20} displayNumber={20} /></span>
+          </div>
+          <div className="bg-emerald py-1 text-green border-2 border-green rounded-r-2xl content-center" onClick={() => addDice(100)}>
+            <span className="flex items-center justify-center"><Die dieNumber={100} displayNumber={100} /></span>
+          </div>
           
           <div className="col-span-4 pr-2">
             <Stepper {...modifierProps}></Stepper>
@@ -111,6 +121,11 @@ export default function Home() {
 
           <div className="col-span-8">
             <h1>Current:</h1>
+            {currentRoll.map(function(data) {
+              return (
+                <Die dieNumber={data.die} displayNumber={data.rolled} />
+              )
+            })}
             <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">Total: </div>
           </div>
 

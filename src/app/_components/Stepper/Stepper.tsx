@@ -18,7 +18,7 @@ export default function Stepper({
             <label htmlFor="custom-input-number">{label}</label>
             <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
                 <button className="bg-emerald text-green hover:text-white hover:bg-green h-full w-20 rounded-l cursor-pointer outline-none" onClick={() => onChange(value--)}>
-                    <span className="m-auto text-2xl font-thin">−</span>
+                    <span className="m-auto text-2xl">−</span>
                 </button>
                 
                 <input 
@@ -29,7 +29,7 @@ export default function Stepper({
                 </input>
                 
                 <button className="bg-emerald text-green hover:text-white hover:bg-green h-full w-20 rounded-r cursor-pointer" onClick={() => onChange(value++)}>
-                    <span className="m-auto text-2xl font-thin">+</span>
+                    <span className="m-auto text-2xl">+</span>
                 </button>
             </div>
         </div>

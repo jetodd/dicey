@@ -1,4 +1,5 @@
 export interface IDiceProps {
-    text: string;
     color?: string;
+    dieNumber: number;
+    displayNumber: number;
 }
