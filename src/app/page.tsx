@@ -13,13 +13,13 @@ import Stepper, { IStepperProps } from "./_components/Stepper/Stepper";
 
 export default function Home() {
   const [history, setHistory] = useState<IDiceRoll[]>([]);
-  const [currentRoll, setCurrentRoll] = useState<IDiceRoll[]>();
-  const [previousRoll, setPreviousRoll] = useState<IDiceRoll[]>();
+  const [currentRoll, setCurrentRoll] = useState<IDiceRoll[]>([]);
+  const [previousRoll, setPreviousRoll] = useState<IDiceRoll[]>([]);
   const [modifier, setModifier] = useState<number>(0);
   const [numberOfDice, setNumberOfDice] = useState<number>(1);
 
   const modifierProps: IStepperProps = {
-    onStepperChange: onModifierChanged,
+    onChange: setModifier,
     label: "Modifier",
     value: modifier,
     min: -20,
@@ -27,44 +27,36 @@ export default function Home() {
   }
 
   const diceNumberProps: IStepperProps = {
-    onStepperChange: onDiceNumberChanged,
+    onChange: setNumberOfDice,
     label: "Number",
     value: numberOfDice,
     min: 1,
     max: 20,
   }
 
-  function onModifierChanged(newValue: number) {
-    setModifier(newValue);
-  }
-
-  function onDiceNumberChanged(newValue: number) {
-    setNumberOfDice(newValue);
-  }
-
   function handleClear() {
-    setHistory([]);
     setCurrentRoll([]);
     setModifier(0);
     setNumberOfDice(1);
   }
 
   function rollDice() {
-    // const numbers = [...Array(die + 1).keys()].slice(1);
-    // shuffle(numbers);
+    for (let i = 0; i < currentRoll?.length; i++) {
+      const numbers = [...Array(currentRoll[i].die + 1).keys()].slice(1);
+      shuffle(numbers);
 
-    // const duration = (Math.floor(Math.random() * 4) + 1) * 1000;
-    // const started = new Date().getTime();
+      const duration = (Math.floor(Math.random() * 4) + 1) * 1000;
+      const started = new Date().getTime();
 
-    // const animationTimer = setInterval(function() {
-    //   if (new Date().getTime() - started > duration) {
-    //     const final = numbers[Math.floor(Math.random() * numbers.length)];
-    //     setTotal((prevValue) => prevValue + final);
-    //     clearInterval(animationTimer);
-    //   } else {
-    //     const temp = numbers[Math.floor(Math.random() * numbers.length)];
-    //   }
-    // }, 100);
+      const animationTimer = setInterval(function() {
+        if (new Date().getTime() - started > duration) {
+          const final = numbers[Math.floor(Math.random() * numbers.length)];
+          clearInterval(animationTimer);
+        } else {
+          const temp = numbers[Math.floor(Math.random() * numbers.length)];
+        }
+      }, 100);
+    }
   }
 
   function addDice(type: number) {
