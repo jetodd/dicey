@@ -12,12 +12,27 @@ export default function Home() {
   const [modifier, setModifier] = useState<number>(0);
   const [numberOfDice, setNumberOfDice] = useState<number>(1);
 
+  const modifierMin = -20;
+  const modifierMax = 100;
+
+  const modifierOnChange = (value: number) => {
+    if (value < modifierMin) {
+      return modifierMin;
+    }
+
+    if  (value > modifierMax) {
+      return modifierMax;
+    }
+
+    setModifier(value)
+  }
+
   const modifierProps: IStepperProps = {
-    onChange: setModifier,
+    onChange: modifierOnChange,
     label: "Modifier",
     value: modifier,
-    min: -20,
-    max: 20,
+    min: modifierMin,
+    max: modifierMax,
   }
 
   const diceNumberProps: IStepperProps = {
