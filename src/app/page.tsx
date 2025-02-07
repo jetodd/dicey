@@ -7,7 +7,7 @@ import Die from "./_components/Die/Die";
 import Panel from "./_components/Panel/Panel";
 
 export default function Home() {
-  const [history, setHistory] = useState<IDiceRoll[]>([]);
+  const [history, setHistory] = useState<IDiceRoll[][]>([]);
   const [currentRoll, setCurrentRoll] = useState<IDiceRoll[]>([]);
   const [previousRoll, setPreviousRoll] = useState<IDiceRoll[]>([]);
   const [modifier, setModifier] = useState<number>(0);
@@ -117,7 +117,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="app mx-6">
+      <div className="app ml-1 mr-5">
         <div className="grid grid-cols-8 font-[family-name:var(--font-geist-sans)] p-4 gap-y-4 max-w-5xl mx-auto">
           <div className="bg-emerald py-1 text-green rounded-l-2xl border-2 border-green content-center justify-center" onClick={() => addDice(2)}>
             <span className="flex items-center justify-center"><Die dieNumber={2} displayNumber={2} /></span>
@@ -166,6 +166,7 @@ export default function Home() {
           <div className="col-span-8">
             <h1>Current:</h1>
           </div>
+
           {currentRoll.map(data => {
             const key = (Math.random() + 1).toString(36).substring(7);
             return (
