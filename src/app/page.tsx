@@ -104,7 +104,6 @@ export default function Home() {
     }
 
     const key = (Math.random() + 1).toString(36).substring(7);
-    console.log('key', key);
     const die = { key: key, die: type, rolled: 0, modifier: modifier } as IDiceRoll;
     const diceArray = Array(numberOfDice).fill(die);
 
@@ -134,28 +133,28 @@ export default function Home() {
       <div className="app ml-1 mr-5">
         <div className="grid grid-cols-8 font-[family-name:var(--font-geist-sans)] p-4 gap-y-4 max-w-5xl mx-auto">
           <div className="bg-emerald py-1 text-green rounded-l-2xl border-2 border-green content-center justify-center" onClick={() => addDice(2)}>
-            <span className="flex items-center justify-center"><Die dieNumber={2} displayNumber={2} /></span>
+            <span className="flex items-center justify-center"><Die dieNumber={2} displayNumber={2} id="2" /></span>
           </div>
           <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(4)}>
-            <span className="flex items-center justify-center"><Die dieNumber={4} displayNumber={4} /></span>
+            <span className="flex items-center justify-center"><Die dieNumber={4} displayNumber={4} id="4" /></span>
           </div>
           <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(6)}>
-            <span className="flex items-center justify-center"><Die dieNumber={6} displayNumber={6} /></span>
+            <span className="flex items-center justify-center"><Die dieNumber={6} displayNumber={6} id="6" /></span>
           </div>
           <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(8)}>
-            <span className="flex items-center justify-center"><Die dieNumber={8} displayNumber={8} /></span>
+            <span className="flex items-center justify-center"><Die dieNumber={8} displayNumber={8} id="8" /></span>
           </div>
           <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(10)}>
-            <span className="flex items-center justify-center"><Die dieNumber={10} displayNumber={10} /></span>
+            <span className="flex items-center justify-center"><Die dieNumber={10} displayNumber={10} id="10" /></span>
           </div>
           <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(12)}>
-            <span className="flex items-center justify-center"><Die dieNumber={12} displayNumber={12} /></span>
+            <span className="flex items-center justify-center"><Die dieNumber={12} displayNumber={12} id="12" /></span>
           </div>
           <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(20)}>
-            <span className="flex items-center justify-center"><Die dieNumber={20} displayNumber={20} /></span>
+            <span className="flex items-center justify-center"><Die dieNumber={20} displayNumber={20} id="20" /></span>
           </div>
           <div className="bg-emerald py-1 text-green border-2 border-green rounded-r-2xl content-center" onClick={() => addDice(100)}>
-            <span className="flex items-center justify-center"><Die dieNumber={100} displayNumber={100} /></span>
+            <span className="flex items-center justify-center"><Die dieNumber={100} displayNumber={100} id="100" /></span>
           </div>
 
           <div className="col-span-4 pr-2">
@@ -183,7 +182,7 @@ export default function Home() {
 
           {currentRoll.map(data => {
             return (
-              <Die key={data.key} dieNumber={data.die} displayNumber={data.rolled} />
+              <Die key={data.key} dieNumber={data.die} displayNumber={data.rolled} removeDie={() => removeDie(data.key)} />
             )
           })}
           <div className="col-span-8">
