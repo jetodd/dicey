@@ -49,7 +49,7 @@ export default function Die({
     };
 
     return (
-        <div>
+        <div className="content-center">
             {renderDieSelection()}
         </div>
     )
