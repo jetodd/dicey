@@ -16,13 +16,13 @@ export default function Panel({
     };
 
     const rolls : IDiceRoll[][] = [[
-        {die: 6, rolled: 4, modifier: 2}, 
-        {die: 6, rolled: 2, modifier: 1}, 
-        {die: 6, rolled: 5, modifier: 2}, 
-        {die: 8, rolled: 1, modifier: 2}
+        {die: 6, rolled: 4, modifier: 2, key: 'sdfdsf'}, 
+        {die: 6, rolled: 2, modifier: 1, key: 'sdwerw'}, 
+        {die: 6, rolled: 5, modifier: 2, key: 'uiyioo'}, 
+        {die: 8, rolled: 1, modifier: 2, key: 'mnbmmb'}
     ],
     [
-        {die: 6, rolled: 4, modifier: 2}, 
+        {die: 6, rolled: 4, modifier: 2, key: 'zxcvcz'}, 
     ]];
 
     return (

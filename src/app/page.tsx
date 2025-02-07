@@ -103,10 +103,18 @@ export default function Home() {
       return;
     }
 
-    const die = { die: type, rolled: 0, modifier: modifier } as IDiceRoll;
+    const key = (Math.random() + 1).toString(36).substring(7);
+    console.log('key', key);
+    const die = { key: key, die: type, rolled: 0, modifier: modifier } as IDiceRoll;
     const diceArray = Array(numberOfDice).fill(die);
 
     currentRoll ? setCurrentRoll([...currentRoll, ...diceArray]) : setCurrentRoll([...diceArray]);
+  }
+
+  function removeDie(key: string) {
+    setCurrentRoll(currentRoll.filter(function(die) {
+      return die.key !== key;
+    }))
   }
 
   function shuffle(array: number[]) {
@@ -174,9 +182,8 @@ export default function Home() {
           </div>
 
           {currentRoll.map(data => {
-            const key = (Math.random() + 1).toString(36).substring(7);
             return (
-              <Die key={key} dieNumber={data.die} displayNumber={data.rolled} />
+              <Die key={data.key} dieNumber={data.die} displayNumber={data.rolled} />
             )
           })}
           <div className="col-span-8">
@@ -194,9 +201,8 @@ export default function Home() {
           </div>
 
           {previousRoll.map(data => {
-            const key = (Math.random() + 1).toString(36).substring(7);
             return (
-              <Die key={key} dieNumber={data.die} displayNumber={data.rolled} />
+              <Die key={data.key} dieNumber={data.die} displayNumber={data.rolled} />
             )
           })}
           
