@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IDiceRoll } from "./_models/IDiceRoll";
 import Stepper, { IStepperProps } from "./_components/Stepper/Stepper";
 import Die from "./_components/Die/Die";
+import Panel from "./_components/Panel/Panel";
 
 export default function Home() {
   const [history, setHistory] = useState<IDiceRoll[]>([]);
@@ -11,6 +12,7 @@ export default function Home() {
   const [previousRoll, setPreviousRoll] = useState<IDiceRoll[]>([]);
   const [modifier, setModifier] = useState<number>(0);
   const [numberOfDice, setNumberOfDice] = useState<number>(1);
+  const [rolled, setRolled] = useState<boolean>(false);
 
   const modifierMin = -20;
   const modifierMax = 100;
@@ -52,29 +54,50 @@ export default function Home() {
     setCurrentRoll([]);
     setModifier(0);
     setNumberOfDice(1);
+    setRolled(false);
+  }
+
+  function updateRoll(i: number, result: number) {
+    setCurrentRoll(currentRoll.map((roll, pos) => {
+      if (pos === i) {
+        const theResult = { ...roll, rolled: result }
+        console.log('i in here', theResult)
+        return theResult
+      } else {
+        console.log('not in here')
+      }
+      return roll
+    }));
   }
 
   function rollDice() {
-    for (let i = 0; i < currentRoll?.length; i++) {
-      const numbers = [...Array(currentRoll[i].die + 1).keys()].slice(1);
-      shuffle(numbers);
+    if (currentRoll) {
+      for (let i = 0; i < currentRoll?.length; i++) {
+        const numbers = [...Array(currentRoll[i].die + 1).keys()].slice(1);
+        shuffle(numbers);
 
-      const duration = (Math.floor(Math.random() * 4) + 1) * 1000;
-      const started = new Date().getTime();
+        const duration = (Math.floor(Math.random() * 4) + 1) * 1000;
+        const started = new Date().getTime();
 
-      const animationTimer = setInterval(function() {
-        if (new Date().getTime() - started > duration) {
-          const final = numbers[Math.floor(Math.random() * numbers.length)];
-          clearInterval(animationTimer);
-        } else {
-          const temp = numbers[Math.floor(Math.random() * numbers.length)];
-        }
-      }, 100);
+        const animationTimer = setInterval(() => {
+          if (new Date().getTime() - started > duration) {
+            const final = numbers[Math.floor(Math.random() * numbers.length)];
+            updateRoll(i, final)
+            console.log('final ', final, '  ', i, currentRoll);
+            clearInterval(animationTimer);
+          } else {
+            const temp = numbers[Math.floor(Math.random() * numbers.length)];
+            updateRoll(i, temp)
+            console.log('temp ', temp, '   ', i);
+            setCurrentRoll(currentRoll);
+          }
+        }, 100);
+      }
     }
   }
 
   function addDice(type: number) {
-    const die = {die: type, rolled: 0, modifier: modifier} as IDiceRoll;
+    const die = { die: type, rolled: 0, modifier: modifier } as IDiceRoll;
     const diceArray = Array(numberOfDice).fill(die);
 
     currentRoll ? setCurrentRoll([...currentRoll, ...diceArray]) : setCurrentRoll([...diceArray]);
@@ -82,18 +105,19 @@ export default function Home() {
 
   function shuffle(array: number[]) {
     let currentIndex = array.length;
-  
+
     while (currentIndex != 0) {
       let randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-  
+
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
   }
 
   return (
-      <main>
+    <main>
+      <div className="app mx-6">
         <div className="grid grid-cols-8 font-[family-name:var(--font-geist-sans)] p-4 gap-y-4 max-w-5xl mx-auto">
           <div className="bg-emerald py-1 text-green rounded-l-2xl border-2 border-green content-center justify-center" onClick={() => addDice(2)}>
             <span className="flex items-center justify-center"><Die dieNumber={2} displayNumber={2} /></span>
@@ -119,7 +143,7 @@ export default function Home() {
           <div className="bg-emerald py-1 text-green border-2 border-green rounded-r-2xl content-center" onClick={() => addDice(100)}>
             <span className="flex items-center justify-center"><Die dieNumber={100} displayNumber={100} /></span>
           </div>
-          
+
           <div className="col-span-4 pr-2">
             <Stepper {...modifierProps}></Stepper>
           </div>
@@ -130,7 +154,7 @@ export default function Home() {
 
           <div className="col-span-4">
             <button className="bg-green text-white py-2 px-4 rounded-full w-full mr-2" onClick={rollDice}>roll</button>
-            </div>
+          </div>
           <div className="col-span-4">
             <button className="bg-green text-white py-2 px-4 rounded-full w-full ml-2" onClick={handleClear}>clear</button>
           </div>
@@ -142,14 +166,15 @@ export default function Home() {
           <div className="col-span-8">
             <h1>Current:</h1>
           </div>
-            {currentRoll.map(function(data) {
-              return (
-                <Die dieNumber={data.die} displayNumber={data.rolled} />
-              )
-            })}
+          {currentRoll.map(data => {
+            const key = (Math.random() + 1).toString(36).substring(7);
+            return (
+              <Die key={key} dieNumber={data.die} displayNumber={data.rolled} />
+            )
+          })}
           <div className="col-span-8">
             <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">
-              Total: {currentRoll.reduce((n, {rolled, modifier}) => n + rolled + modifier, 0)}
+              Total: {currentRoll.reduce((n, { rolled, modifier }) => n + rolled + modifier, 0)}
             </div>
           </div>
 
@@ -159,11 +184,23 @@ export default function Home() {
 
           <div className="col-span-8">
             <h1>Previous:</h1>
+          </div>
+
+          {previousRoll.map(data => {
+            const key = (Math.random() + 1).toString(36).substring(7);
+            return (
+              <Die key={key} dieNumber={data.die} displayNumber={data.rolled} />
+            )
+          })}
+          
+          <div className="col-span-8">
             <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">
-              Total:  {previousRoll.reduce((n, {rolled, modifier}) => n + rolled + modifier, 0)}
+              Total:  {previousRoll.reduce((n, { rolled, modifier }) => n + rolled + modifier, 0)}
             </div>
           </div>
         </div>
-      </main>
+        <Panel history={history} />
+      </div>
+    </main>
   );
 }
