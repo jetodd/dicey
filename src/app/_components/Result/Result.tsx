@@ -6,8 +6,7 @@ export interface IResultProps {
 
 export default function Result({
     rolls,
-}: IResultProps) {
-    console.log(rolls);
+}: IResultProps) {    
     return (
         <div className="w-full">
             <div className="align-middle aspect-square size-16 align-middle text-center bg-emerald my-2 rounded-md items-center">

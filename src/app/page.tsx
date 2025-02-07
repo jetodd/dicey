@@ -17,6 +17,7 @@ export default function Home() {
   const modifierMin = -20;
   const modifierMax = 100;
   const numberOfDiceMax = 50;
+  const totalDiceMax = 5;
 
   const modifierOnChange = (value: number) => {
     if (value < modifierMin || value > modifierMax) {
@@ -97,6 +98,11 @@ export default function Home() {
   }
 
   function addDice(type: number) {
+    if (currentRoll.length > totalDiceMax || numberOfDice + currentRoll.length > totalDiceMax) {
+      alert(`Cannot add more than ${totalDiceMax} dice at once`);
+      return;
+    }
+
     const die = { die: type, rolled: 0, modifier: modifier } as IDiceRoll;
     const diceArray = Array(numberOfDice).fill(die);
 
