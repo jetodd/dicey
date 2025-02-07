@@ -16,8 +16,8 @@ export default function Home() {
 
   const modifierMin = -20;
   const modifierMax = 100;
-  const numberOfDiceMax = 50;
-  const totalDiceMax = 5;
+  const numberOfDiceMax = 20;
+  const totalDiceMax = 20;
 
   const modifierOnChange = (value: number) => {
     if (value < modifierMin || value > modifierMax) {
