@@ -10,10 +10,8 @@ import { randomKey } from "./utils/utils";
 export default function Home() {
   const [history, setHistory] = useState<IDiceRoll[][]>([]);
   const [currentRoll, setCurrentRoll] = useState<IDiceRoll[]>([]);
-  const [previousRoll, setPreviousRoll] = useState<IDiceRoll[]>([]);
   const [modifier, setModifier] = useState<number>(0);
   const [numberOfDice, setNumberOfDice] = useState<number>(1);
-  const [rolled, setRolled] = useState<boolean>(false);
 
   const modifierMin = -20;
   const modifierMax = 100;
@@ -56,7 +54,6 @@ export default function Home() {
     setCurrentRoll([]);
     setModifier(0);
     setNumberOfDice(1);
-    setRolled(false);
   }
 
   function rollDice() {
@@ -76,7 +73,7 @@ export default function Home() {
             newCurrentRoll[i].rolled = final;
 
             if (i === currentRoll.length - 1) {
-              setPreviousRoll([...newCurrentRoll]);
+              setHistory([...history, [...newCurrentRoll]]);
             }
 
             clearInterval(animationTimer);
@@ -266,31 +263,6 @@ export default function Home() {
 
           <div className="col-span-8">
             <hr className="h-px my-4 bg-green border-0"></hr>
-          </div>
-
-          <div className="col-span-8">
-            <h1>Previous:</h1>
-          </div>
-
-          {previousRoll.map((data) => {
-            return (
-              <Die
-                key={data.key}
-                id={data.key}
-                dieNumber={data.die}
-                displayNumber={data.rolled}
-              />
-            );
-          })}
-
-          <div className="col-span-8">
-            <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">
-              Total:{" "}
-              {previousRoll.reduce(
-                (n, { rolled, modifier }) => n + rolled + modifier,
-                0,
-              )}
-            </div>
           </div>
         </div>
         <Panel history={history} />
