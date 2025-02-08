@@ -2,6 +2,7 @@ import { IDiceRoll } from "@/app/_models/IDiceRoll";
 import { useState } from "react";
 import Result from "../Result/Result";
 import useComponentVisible from "@/app/_hooks/useComponentVisible";
+import { randomKey } from "@/app/utils/utils";
 
 export interface IPanelProps {
   history: IDiceRoll[][];
@@ -40,7 +41,7 @@ export default function Panel({ history }: IPanelProps) {
             <span className="text-xl text-white">History</span>
 
             {rolls.map((data) => {
-              return <Result rolls={data} />;
+              return <Result key={randomKey()} rolls={data} />;
             })}
           </div>
         )}

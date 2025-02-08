@@ -5,6 +5,7 @@ import { IDiceRoll } from "./_models/IDiceRoll";
 import Stepper, { IStepperProps } from "./_components/Stepper/Stepper";
 import Die from "./_components/Die/Die";
 import Panel from "./_components/Panel/Panel";
+import { randomKey } from "./utils/utils";
 
 export default function Home() {
   const [history, setHistory] = useState<IDiceRoll[][]>([]);
@@ -97,10 +98,6 @@ export default function Home() {
         }, 100);
       }
     }
-  }
-
-  function randomKey() {
-    return (Math.random() + 1).toString(36).substring(7);
   }
 
   function addDice(type: number) {
