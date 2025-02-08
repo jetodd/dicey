@@ -130,7 +130,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="app ml-1 mr-5">
+      <div className="app ml-1 mr-6">
         <div className="grid grid-cols-8 font-[family-name:var(--font-geist-sans)] p-4 gap-y-4 max-w-5xl mx-auto">
           <div className="bg-emerald py-1 text-green rounded-l-2xl border-2 border-green content-center justify-center" onClick={() => addDice(2)}>
             <span className="flex items-center justify-center"><Die dieNumber={2} displayNumber={2} id="2" /></span>
@@ -182,7 +182,7 @@ export default function Home() {
 
           {currentRoll.map(data => {
             return (
-              <Die key={data.key} dieNumber={data.die} displayNumber={data.rolled} removeDie={() => removeDie(data.key)} />
+              <Die key={data.key} id={data.key} dieNumber={data.die} displayNumber={data.rolled} removeDie={() => removeDie(data.key)} />
             )
           })}
           <div className="col-span-8">
@@ -201,7 +201,7 @@ export default function Home() {
 
           {previousRoll.map(data => {
             return (
-              <Die key={data.key} dieNumber={data.die} displayNumber={data.rolled} />
+              <Die key={data.key} id={data.key} dieNumber={data.die} displayNumber={data.rolled} />
             )
           })}
           
