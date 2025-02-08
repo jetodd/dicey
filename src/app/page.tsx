@@ -99,6 +99,10 @@ export default function Home() {
     }
   }
 
+  function randomKey() {
+    return (Math.random() + 1).toString(36).substring(7);
+  }
+
   function addDice(type: number) {
     if (
       currentRoll.length > totalDiceMax ||
@@ -108,14 +112,18 @@ export default function Home() {
       return;
     }
 
-    const key = (Math.random() + 1).toString(36).substring(7);
+    const key = randomKey();
     const die = {
       key: key,
       die: type,
       rolled: 0,
       modifier: modifier,
     } as IDiceRoll;
-    const diceArray = Array(numberOfDice).fill(die);
+    const diceArray = Array(numberOfDice)
+      .fill(die)
+      .map((die) => {
+        return { ...die, key: randomKey() };
+      });
 
     currentRoll
       ? setCurrentRoll([...currentRoll, ...diceArray])
