@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { IDiceRoll } from "./_models/IDiceRoll";
@@ -25,7 +25,7 @@ export default function Home() {
     }
 
     setModifier(value);
-  }
+  };
 
   const numberOfDiceOnChange = (value: number) => {
     if (value < 1 || value > numberOfDiceMax) {
@@ -33,7 +33,7 @@ export default function Home() {
     }
 
     setNumberOfDice(value);
-  }
+  };
 
   const modifierProps: IStepperProps = {
     onChange: modifierOnChange,
@@ -41,7 +41,7 @@ export default function Home() {
     value: modifier,
     min: modifierMin,
     max: modifierMax,
-  }
+  };
 
   const diceNumberProps: IStepperProps = {
     onChange: numberOfDiceOnChange,
@@ -49,7 +49,7 @@ export default function Home() {
     value: numberOfDice,
     min: 1,
     max: numberOfDiceMax,
-  }
+  };
 
   function handleClear() {
     setCurrentRoll([]);
@@ -59,16 +59,18 @@ export default function Home() {
   }
 
   function updateRoll(i: number, result: number) {
-    setCurrentRoll(currentRoll.map((roll, pos) => {
-      if (pos === i) {
-        const theResult = { ...roll, rolled: result }
-        console.log('i in here', theResult)
-        return theResult
-      } else {
-        console.log('not in here')
-      }
-      return roll
-    }));
+    setCurrentRoll(
+      currentRoll.map((roll, pos) => {
+        if (pos === i) {
+          const theResult = { ...roll, rolled: result };
+          console.log("i in here", theResult);
+          return theResult;
+        } else {
+          console.log("not in here");
+        }
+        return roll;
+      }),
+    );
   }
 
   function rollDice() {
@@ -83,13 +85,13 @@ export default function Home() {
         const animationTimer = setInterval(() => {
           if (new Date().getTime() - started > duration) {
             const final = numbers[Math.floor(Math.random() * numbers.length)];
-            updateRoll(i, final)
-            console.log('final ', final, '  ', i, currentRoll);
+            updateRoll(i, final);
+            console.log("final ", final, "  ", i, currentRoll);
             clearInterval(animationTimer);
           } else {
             const temp = numbers[Math.floor(Math.random() * numbers.length)];
-            updateRoll(i, temp)
-            console.log('temp ', temp, '   ', i);
+            updateRoll(i, temp);
+            console.log("temp ", temp, "   ", i);
             setCurrentRoll(currentRoll);
           }
         }, 100);
@@ -98,22 +100,34 @@ export default function Home() {
   }
 
   function addDice(type: number) {
-    if (currentRoll.length > totalDiceMax || numberOfDice + currentRoll.length > totalDiceMax) {
+    if (
+      currentRoll.length > totalDiceMax ||
+      numberOfDice + currentRoll.length > totalDiceMax
+    ) {
       alert(`Cannot add more than ${totalDiceMax} dice at once`);
       return;
     }
 
     const key = (Math.random() + 1).toString(36).substring(7);
-    const die = { key: key, die: type, rolled: 0, modifier: modifier } as IDiceRoll;
+    const die = {
+      key: key,
+      die: type,
+      rolled: 0,
+      modifier: modifier,
+    } as IDiceRoll;
     const diceArray = Array(numberOfDice).fill(die);
 
-    currentRoll ? setCurrentRoll([...currentRoll, ...diceArray]) : setCurrentRoll([...diceArray]);
+    currentRoll
+      ? setCurrentRoll([...currentRoll, ...diceArray])
+      : setCurrentRoll([...diceArray]);
   }
 
   function removeDie(key: string) {
-    setCurrentRoll(currentRoll.filter(function(die) {
-      return die.key !== key;
-    }))
+    setCurrentRoll(
+      currentRoll.filter(function (die) {
+        return die.key !== key;
+      }),
+    );
   }
 
   function shuffle(array: number[]) {
@@ -124,7 +138,9 @@ export default function Home() {
       currentIndex--;
 
       [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+        array[randomIndex],
+        array[currentIndex],
+      ];
     }
   }
 
@@ -132,29 +148,69 @@ export default function Home() {
     <main>
       <div className="app ml-1 mr-6">
         <div className="grid grid-cols-8 font-[family-name:var(--font-geist-sans)] p-4 gap-y-4 max-w-5xl mx-auto">
-          <div className="bg-emerald py-1 text-green rounded-l-2xl border-2 border-green content-center justify-center" onClick={() => addDice(2)}>
-            <span className="flex items-center justify-center"><Die dieNumber={2} displayNumber={2} id="2" /></span>
+          <div
+            className="bg-emerald py-1 text-green rounded-l-2xl border-2 border-green content-center justify-center"
+            onClick={() => addDice(2)}
+          >
+            <span className="flex items-center justify-center">
+              <Die dieNumber={2} displayNumber={2} id="2" />
+            </span>
           </div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(4)}>
-            <span className="flex items-center justify-center"><Die dieNumber={4} displayNumber={4} id="4" /></span>
+          <div
+            className="bg-emerald py-1 text-green border-2 border-green content-center"
+            onClick={() => addDice(4)}
+          >
+            <span className="flex items-center justify-center">
+              <Die dieNumber={4} displayNumber={4} id="4" />
+            </span>
           </div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(6)}>
-            <span className="flex items-center justify-center"><Die dieNumber={6} displayNumber={6} id="6" /></span>
+          <div
+            className="bg-emerald py-1 text-green border-2 border-green content-center"
+            onClick={() => addDice(6)}
+          >
+            <span className="flex items-center justify-center">
+              <Die dieNumber={6} displayNumber={6} id="6" />
+            </span>
           </div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(8)}>
-            <span className="flex items-center justify-center"><Die dieNumber={8} displayNumber={8} id="8" /></span>
+          <div
+            className="bg-emerald py-1 text-green border-2 border-green content-center"
+            onClick={() => addDice(8)}
+          >
+            <span className="flex items-center justify-center">
+              <Die dieNumber={8} displayNumber={8} id="8" />
+            </span>
           </div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(10)}>
-            <span className="flex items-center justify-center"><Die dieNumber={10} displayNumber={10} id="10" /></span>
+          <div
+            className="bg-emerald py-1 text-green border-2 border-green content-center"
+            onClick={() => addDice(10)}
+          >
+            <span className="flex items-center justify-center">
+              <Die dieNumber={10} displayNumber={10} id="10" />
+            </span>
           </div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(12)}>
-            <span className="flex items-center justify-center"><Die dieNumber={12} displayNumber={12} id="12" /></span>
+          <div
+            className="bg-emerald py-1 text-green border-2 border-green content-center"
+            onClick={() => addDice(12)}
+          >
+            <span className="flex items-center justify-center">
+              <Die dieNumber={12} displayNumber={12} id="12" />
+            </span>
           </div>
-          <div className="bg-emerald py-1 text-green border-2 border-green content-center" onClick={() => addDice(20)}>
-            <span className="flex items-center justify-center"><Die dieNumber={20} displayNumber={20} id="20" /></span>
+          <div
+            className="bg-emerald py-1 text-green border-2 border-green content-center"
+            onClick={() => addDice(20)}
+          >
+            <span className="flex items-center justify-center">
+              <Die dieNumber={20} displayNumber={20} id="20" />
+            </span>
           </div>
-          <div className="bg-emerald py-1 text-green border-2 border-green rounded-r-2xl content-center" onClick={() => addDice(100)}>
-            <span className="flex items-center justify-center"><Die dieNumber={100} displayNumber={100} id="100" /></span>
+          <div
+            className="bg-emerald py-1 text-green border-2 border-green rounded-r-2xl content-center"
+            onClick={() => addDice(100)}
+          >
+            <span className="flex items-center justify-center">
+              <Die dieNumber={100} displayNumber={100} id="100" />
+            </span>
           </div>
 
           <div className="col-span-4 pr-2">
@@ -166,10 +222,20 @@ export default function Home() {
           </div>
 
           <div className="col-span-4">
-            <button className="bg-green text-white py-2 px-4 rounded-full w-full mr-2" onClick={rollDice}>roll</button>
+            <button
+              className="bg-green text-white py-2 px-4 rounded-full w-full mr-2"
+              onClick={rollDice}
+            >
+              roll
+            </button>
           </div>
           <div className="col-span-4">
-            <button className="bg-green text-white py-2 px-4 rounded-full w-full ml-2" onClick={handleClear}>clear</button>
+            <button
+              className="bg-green text-white py-2 px-4 rounded-full w-full ml-2"
+              onClick={handleClear}
+            >
+              clear
+            </button>
           </div>
 
           <div className="col-span-8">
@@ -180,14 +246,24 @@ export default function Home() {
             <h1>Current:</h1>
           </div>
 
-          {currentRoll.map(data => {
+          {currentRoll.map((data) => {
             return (
-              <Die key={data.key} id={data.key} dieNumber={data.die} displayNumber={data.rolled} removeDie={() => removeDie(data.key)} />
-            )
+              <Die
+                key={data.key}
+                id={data.key}
+                dieNumber={data.die}
+                displayNumber={data.rolled}
+                removeDie={() => removeDie(data.key)}
+              />
+            );
           })}
           <div className="col-span-8">
             <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">
-              Total: {currentRoll.reduce((n, { rolled, modifier }) => n + rolled + modifier, 0)}
+              Total:{" "}
+              {currentRoll.reduce(
+                (n, { rolled, modifier }) => n + rolled + modifier,
+                0,
+              )}
             </div>
           </div>
 
@@ -199,15 +275,24 @@ export default function Home() {
             <h1>Previous:</h1>
           </div>
 
-          {previousRoll.map(data => {
+          {previousRoll.map((data) => {
             return (
-              <Die key={data.key} id={data.key} dieNumber={data.die} displayNumber={data.rolled} />
-            )
+              <Die
+                key={data.key}
+                id={data.key}
+                dieNumber={data.die}
+                displayNumber={data.rolled}
+              />
+            );
           })}
-          
+
           <div className="col-span-8">
             <div className="text-left text-2xl bg-green text-emerald rounded-lg px-2 py-4">
-              Total:  {previousRoll.reduce((n, { rolled, modifier }) => n + rolled + modifier, 0)}
+              Total:{" "}
+              {previousRoll.reduce(
+                (n, { rolled, modifier }) => n + rolled + modifier,
+                0,
+              )}
             </div>
           </div>
         </div>
