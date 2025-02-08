@@ -59,44 +59,29 @@ export default function Home() {
     setRolled(false);
   }
 
-  function updateRoll(i: number, result: number) {
-    setCurrentRoll(
-      currentRoll.map((roll, pos) => {
-        if (pos === i) {
-          const theResult = { ...roll, rolled: result };
-          console.log("i in here", theResult);
-          return theResult;
-        } else {
-          console.log("not in here");
-        }
-        return roll;
-      }),
-    );
-  }
-
   function rollDice() {
     if (currentRoll) {
-      for (let i = 0; i < currentRoll?.length; i++) {
-        const numbers = [...Array(currentRoll[i].die + 1).keys()].slice(1);
-        shuffle(numbers);
+      const duration = (Math.floor(Math.random() * 4) + 1) * 1000;
+      const started = new Date().getTime();
 
-        const duration = (Math.floor(Math.random() * 4) + 1) * 1000;
-        const started = new Date().getTime();
+      const animationTimer = setInterval(() => {
+        const newCurrentRoll = [...currentRoll];
+        for (let i = 0; i < currentRoll?.length; i++) {
+          const numbers = shuffle(
+            [...Array(currentRoll[i].die + 1).keys()].slice(1),
+          );
 
-        const animationTimer = setInterval(() => {
           if (new Date().getTime() - started > duration) {
             const final = numbers[Math.floor(Math.random() * numbers.length)];
-            updateRoll(i, final);
-            console.log("final ", final, "  ", i, currentRoll);
+            newCurrentRoll[i].rolled = final;
             clearInterval(animationTimer);
           } else {
             const temp = numbers[Math.floor(Math.random() * numbers.length)];
-            updateRoll(i, temp);
-            console.log("temp ", temp, "   ", i);
-            setCurrentRoll(currentRoll);
+            newCurrentRoll[i].rolled = temp;
           }
-        }, 100);
-      }
+        }
+        setCurrentRoll(newCurrentRoll);
+      }, 100);
     }
   }
 
@@ -137,16 +122,18 @@ export default function Home() {
 
   function shuffle(array: number[]) {
     let currentIndex = array.length;
+    const arrayCopy = [...array];
 
     while (currentIndex != 0) {
       let randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
+      [arrayCopy[currentIndex], arrayCopy[randomIndex]] = [
+        arrayCopy[randomIndex],
+        arrayCopy[currentIndex],
       ];
     }
+    return arrayCopy;
   }
 
   return (
