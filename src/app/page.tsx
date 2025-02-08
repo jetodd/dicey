@@ -74,6 +74,11 @@ export default function Home() {
           if (new Date().getTime() - started > duration) {
             const final = numbers[Math.floor(Math.random() * numbers.length)];
             newCurrentRoll[i].rolled = final;
+
+            if (i === currentRoll.length - 1) {
+              setPreviousRoll([...newCurrentRoll]);
+            }
+
             clearInterval(animationTimer);
           } else {
             const temp = numbers[Math.floor(Math.random() * numbers.length)];
