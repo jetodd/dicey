@@ -38,16 +38,12 @@ export default function Home() {
     onChange: modifierOnChange,
     label: "Modifier",
     value: modifier,
-    min: modifierMin,
-    max: modifierMax,
   };
 
   const diceNumberProps: IStepperProps = {
     onChange: numberOfDiceOnChange,
     label: "Number",
     value: numberOfDice,
-    min: 1,
-    max: numberOfDiceMax,
   };
 
   function handleClear() {
