@@ -3,5 +3,6 @@ export interface IDiceProps {
   dieNumber: number;
   displayNumber: number;
   id: string;
+  modifier?: number;
   removeDie?: (key: string) => void;
 }

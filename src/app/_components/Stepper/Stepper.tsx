@@ -2,17 +2,9 @@ export interface IStepperProps {
   label: string;
   value: number;
   onChange: (value: number) => void;
-  min: number;
-  max: number;
 }
 
-export default function Stepper({
-  label,
-  value,
-  onChange,
-  min,
-  max,
-}: IStepperProps) {
+export default function Stepper({ label, value, onChange }: IStepperProps) {
   return (
     <div className="custom-number-input">
       <label htmlFor="custom-input-number">{label}</label>

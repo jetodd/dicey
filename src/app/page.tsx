@@ -109,9 +109,8 @@ export default function Home() {
         return { ...die, key: randomKey() };
       });
 
-    currentRoll
-      ? setCurrentRoll([...currentRoll, ...diceArray])
-      : setCurrentRoll([...diceArray]);
+    if (currentRoll) setCurrentRoll([...currentRoll, ...diceArray]);
+    else setCurrentRoll([...diceArray]);
   }
 
   function removeDie(key: string) {
@@ -127,7 +126,7 @@ export default function Home() {
     const arrayCopy = [...array];
 
     while (currentIndex != 0) {
-      let randomIndex = Math.floor(Math.random() * currentIndex);
+      const randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 
       [arrayCopy[currentIndex], arrayCopy[randomIndex]] = [
@@ -247,6 +246,7 @@ export default function Home() {
                 id={data.key}
                 dieNumber={data.die}
                 displayNumber={data.rolled}
+                modifier={data.modifier}
                 removeDie={() => removeDie(data.key)}
               />
             );
@@ -259,10 +259,6 @@ export default function Home() {
                 0,
               )}
             </div>
-          </div>
-
-          <div className="col-span-8">
-            <hr className="h-px my-4 bg-green border-0"></hr>
           </div>
         </div>
         <Panel history={history} />

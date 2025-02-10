@@ -4,3 +4,9 @@ export interface IDiceRoll {
   modifier: number;
   key: string;
 }
+
+export interface IDiceRollSummary {
+  diceNumber: number;
+  rolled: number[];
+  modifier: number;
+}
